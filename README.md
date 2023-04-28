@@ -6,9 +6,9 @@
       RETURNS void AS $$ 
       DECLARE 
           codigo departments.department_id%TYPE; 
-          CURSOR c1(cod departments.department_id%TYPE) IS 
+          c1 CURSOR (cod departments.department_id%TYPE) FOR 
               SELECT COUNT(*) FROM employees WHERE department_id=cod; 
-          num_emple number; 
+          num_emple INT; 
       BEGIN 
           codigo:=10; 
           OPEN c1(codigo); 

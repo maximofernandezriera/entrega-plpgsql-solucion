@@ -29,7 +29,7 @@
 
       DO $$
       DECLARE 
-      CURSOR C1 IS SELECT * FROM Employees FOR UPDATE; 
+      C1 CURSOR FOR SELECT * FROM Employees FOR UPDATE; 
       EMPLEADO RECORD;
       BEGIN 
       FOR EMPLEADO IN C1 LOOP 
@@ -50,7 +50,7 @@
       LANGUAGE plpgsql
       AS $$
       DECLARE 
-          CURSOR C1 IS SELECT * FROM Employees FOR UPDATE; 
+          C1 CURSOR FOR SELECT * FROM Employees FOR UPDATE; 
           EMPLEADO Employees%ROWTYPE;
       BEGIN 
           FOR EMPLEADO IN C1 LOOP 

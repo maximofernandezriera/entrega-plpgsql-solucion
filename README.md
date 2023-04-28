@@ -18,3 +18,11 @@
       LANGUAGE plpgsql;
 
 ## 2
+      BEGIN
+          FOR EMPLE IN SELECT * FROM EMPLOYEES WHERE JOB_ID = 'ST_CLERK' LOOP
+              RAISE NOTICE '%', EMPLE.FIRST_NAME;
+          END LOOP;
+      END;
+
+## 3
+

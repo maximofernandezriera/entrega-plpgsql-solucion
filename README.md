@@ -18,11 +18,12 @@
       LANGUAGE plpgsql;
 
 ## 2
+      DO $$
       BEGIN
           FOR EMPLE IN SELECT * FROM EMPLOYEES WHERE JOB_ID = 'ST_CLERK' LOOP
               RAISE NOTICE '%', EMPLE.FIRST_NAME;
           END LOOP;
-      END;
+      END$$;
 
 ## 3 como bloque --> https://www.postgresql.org/docs/current/sql-do.html
 

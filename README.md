@@ -24,5 +24,42 @@
           END LOOP;
       END;
 
-## 3
+## 3 como bloque --> https://www.postgresql.org/docs/current/sql-do.html
+
+      DO $$
+      DECLARE 
+      CURSOR C1 IS SELECT * FROM Employees FOR UPDATE; 
+      EMPLEADO RECORD;
+      BEGIN 
+      FOR EMPLEADO IN C1 LOOP 
+      IF EMPLEADO.SALARY > 8000 THEN 
+      UPDATE EMPLOYEES SET SALARY=SALARY*1.02 
+      WHERE CURRENT OF C1; 
+      ELSE 
+      UPDATE EMPLOYEES SET SALARY=SALARY*1.03 
+      WHERE CURRENT OF C1; 
+      END IF; 
+      END LOOP; 
+      COMMIT; 
+      END $$;
+
+## 3 como procedimiento
+
+      CREATE OR REPLACE PROCEDURE ACTUALIZA_SALARIO_EMPLEADOS() 
+      LANGUAGE plpgsql
+      AS $$
+      DECLARE 
+          CURSOR C1 IS SELECT * FROM Employees FOR UPDATE; 
+          EMPLEADO Employees%ROWTYPE;
+      BEGIN 
+          FOR EMPLEADO IN C1 LOOP 
+              IF EMPLEADO.SALARY > 8000 THEN 
+                  UPDATE Employees SET SALARY=SALARY*1.02 WHERE CURRENT OF C1; 
+              ELSE 
+                  UPDATE Employees SET SALARY=SALARY*1.03 WHERE CURRENT OF C1; 
+              END IF; 
+          END LOOP; 
+          COMMIT; 
+      END;
+      $$;
 
